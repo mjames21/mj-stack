@@ -1,7 +1,7 @@
 server {
-server_name lcp.com www.lcp.com;
+server_name example.com www.example.com;
  client_max_body_size 100M;
- root /var/www/html/bsl-alias-portal/public; index index.php index.html;
+ root /var/www/html/example/public; index index.php index.html;
 
 # redirect /analytics -> /analytics/
 location = /analytics { return 301 /analytics/; }
@@ -71,7 +71,7 @@ proxy_set_header Connection "upgrade"; # keep WS upgrade for dev/sockets
 
 # NEXT static
 location /_next/static/ {
-alias /var/www/html/wan-gov-portal/.next/static/;
+alias /var/www/html/next-folder/.next/static/;
 expires 1y;
 access_log off;
 add_header Cache-Control "public, max-age=31536000, immutable";
@@ -80,7 +80,7 @@ add_header Cache-Control "public, max-age=31536000, immutable";
 
 # Public static
 location /public/ {
-root /var/www/html/wan-gov-portal/;
+root /var/www/html/next-folder/;
 expires 1y;
 access_log off;
 add_header Cache-Control "public, max-age=31536000, immutable";
@@ -88,7 +88,7 @@ add_header Cache-Control "public, max-age=31536000, immutable";
 
 
 # GO Fiber
-location /lcyuccbhlhuxd/ {
+location /apis/ {
 proxy_pass http://localhost:3005/;
 proxy_http_version 1.1;
 proxy_set_header Host $host;
