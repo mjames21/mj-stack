@@ -1,8 +1,0 @@
-sudo apt install certbot python3-certbot-nginx
-server_name example.com www.example.com
-sudo nginx -t
-sudo systemctl reload nginx
-sudo certbot --nginx -d example.com -d www.example.com
-sudo systemctl status certbot.timer
-
-https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04
