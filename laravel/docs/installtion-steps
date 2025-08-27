@@ -33,3 +33,7 @@ sudo find storage bootstrap/cache -type f -exec chmod 664 {} +
 # 3) (optional) clear caches to force rebuild
 php artisan cache:clear
 php artisan view:clear
+
+
+npm install
+npm run build
