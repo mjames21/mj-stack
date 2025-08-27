@@ -1,0 +1,19 @@
+sudo apt install  php8.3-fpm php8.3-mbstring php8.3-xml php8.3-mysql php8.3-zip php8.3-curl php8.3-gd
+
+composer create-project laravel/laravel example-app
+
+cd example-app
+
+composer require laravel/jetstream
+composer require livewire/livewire
+composer require maatwebsite/excel
+composer install --ignore-platform-reqs --no-plugins
+
+php artisan key:generate
+
+
+
+
+https://laravel-excel.com/
+https://laravel-livewire.com/docs/2.x/quickstart
+https://jetstream.laravel.com/installation.html
