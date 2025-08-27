@@ -17,3 +17,19 @@ php artisan key:generate
 https://laravel-excel.com/
 https://laravel-livewire.com/docs/2.x/quickstart
 https://jetstream.laravel.com/installation.html
+
+
+
+on NGINX 
+cd /var/www/html/WEB-portal
+
+# 1) make web user the owner (adjust user: www-data | nginx | apache)
+sudo chown -R www-data:www-data storage bootstrap/cache
+
+# 2) give write perms: dirs 775, files 664
+sudo find storage bootstrap/cache -type d -exec chmod 775 {} +
+sudo find storage bootstrap/cache -type f -exec chmod 664 {} +
+
+# 3) (optional) clear caches to force rebuild
+php artisan cache:clear
+php artisan view:clear
