@@ -12,7 +12,7 @@ composer install --ignore-platform-reqs --no-plugins
 
 php artisan key:generate
 
-
+php artisan make:model Organization -m
 
 
 https://laravel-excel.com/
@@ -38,4 +38,5 @@ php artisan view:clear
 
 npm install
 npm run build
+
 
