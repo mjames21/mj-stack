@@ -8,6 +8,7 @@ composer require laravel/jetstream
 composer require livewire/livewire
 composer require maatwebsite/excel
 composer install --ignore-platform-reqs --no-plugins
+.env
 
 php artisan key:generate
 
@@ -37,3 +38,4 @@ php artisan view:clear
 
 npm install
 npm run build
+
