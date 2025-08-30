@@ -9,6 +9,8 @@ composer require livewire/livewire
 composer require maatwebsite/excel
 composer require spatie/laravel-permission
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+php artisan migrate
+
 
 composer install --ignore-platform-reqs --no-plugins
 .env
@@ -41,6 +43,7 @@ php artisan view:clear
 
 npm install
 npm run build
+
 
 
 
