@@ -26,6 +26,9 @@ php artisan key:generate
 
 php artisan make:model Organization -m
 
+php artisan migrate:fresh --seed
+
+
 
 https://laravel-excel.com/
 https://laravel-livewire.com/docs/2.x/quickstart
@@ -50,6 +53,7 @@ php artisan view:clear
 
 npm install
 npm run build
+
 
 
 
