@@ -55,6 +55,77 @@ npm install
 npm run build
 
 
+//missing auth do this
+# FILE: scripts/reinstall-jetstream-livewire.sh
+# why: end-to-end clean scaffold for Jetstream + Livewire (Laravel 12, PHP 8.3)
+
+set -euo pipefail
+
+# 0) Safety: ensure a clean working tree
+git add -A && git commit -m "pre-jetstream-reinstall backup" || true
+
+# 1) Remove custom auth bits that fight Jetstream/Fortify
+#    - delete any hand-made /login routes or controllers
+#    - delete any leftover resources/views/auth/*.blade.php to let Jetstream regenerate
+sed -i.bak '/Route::get(.*\/login/d;/Route::post(.*\/login/d;/Route::post(.*\/logout/d' routes/web.php || true
+rm -rf resources/views/auth || true
+rm -f app/Http/Controllers/Auth/LoginController.php || true
+
+# 2) Clear caches (important when views were missing previously)
+php artisan route:clear || true
+php artisan view:clear || true
+php artisan config:clear || true
+php artisan cache:clear || true
+
+# 3) (Re)install packages
+composer require laravel/jetstream livewire/livewire
+
+# 4) Scaffold Jetstream with Livewire stack (creates auth views/components)
+php artisan jetstream:install livewire
+
+# Optional: if you need the raw Blade files in your app to customize
+php artisan vendor:publish --tag=jetstream-views || true
+
+# 5) Ensure Fortify renders Blade views (Jetstream expects this)
+#    If config/fortify.php doesn't exist, publish it:
+php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider" || true
+
+# Enforce 'views' => true in config/fortify.php
+php -r '
+$f="config/fortify.php";
+if (file_exists($f)) {
+  $s=file_get_contents($f);
+  $s=preg_replace("/(\x27views\x27\s*=>\s*)false/","$1true",$s);
+  file_put_contents($f,$s);
+}
+'
+
+# 6) Build frontend assets (Jetstream UI)
+# Use your preferred package manager; defaulting to npm here
+npm install
+npm run build
+
+# 7) Run migrations if not already
+php artisan migrate
+
+# 8) Double-check Jetstream stack setting
+php -r '
+$f="config/jetstream.php";
+if (file_exists($f)) {
+  $s=file_get_contents($f);
+  $s=preg_replace("/(\x27stack\x27\s*=>\s*)\x27inertia\x27/","$1\x27livewire\x27",$s);
+  if (strpos($s, "stack") !== false) file_put_contents($f,$s);
+}
+'
+
+# 9) Final cache clear & route check
+php artisan optimize:clear
+php artisan route:list | grep -E " login|logout" || true
+
+echo "✅ Jetstream + Livewire reinstalled. Try: php artisan serve, then open http://127.0.0.1:8000/login"
+
+
+
 
 
 
