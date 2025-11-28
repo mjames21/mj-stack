@@ -1,0 +1,29 @@
+# 1) Ensure you're on the default branch seen in UI (main)
+git fetch origin --prune
+git checkout main
+git pull
+
+# 2) Ignore env files (prevents re-adding)
+printf "\n# env\n.env\n.env.*\n*.env\n.env.save\n.env copy\n" >> .gitignore
+git add .gitignore
+
+# 3) Remove from Git index ONLY (keep local files)
+git rm --cached ".env.save" || true
+git rm --cached ".env copy" || true
+git rm --cached ".env" 2>/dev/null || true
+git rm --cached ".env.*" 2>/dev/null || true
+git rm --cached "*.env" 2>/dev/null || true
+
+# 4) Commit + push deletion to remote HEAD
+git commit -m "chore: remove env files from repo & ignore going forward"
+git push origin main
+
+# 5) Verify remote no longer has them in HEAD
+git ls-tree -r origin/main --name-only | grep -E '(^|/)\.env(\.save)?$|(^|/)\.env copy$' \
+  || echo "OK: not in remote HEAD"
+
+# 6) (Optional) Purge from ALL history later
+# pipx install git-filter-repo  # one-time
+# git filter-repo --invert-paths --path '.env.save' --path '.env' --path '.env copy' --path-glob '*.env' --force
+# git push --force --all
+# git push --force --tags
