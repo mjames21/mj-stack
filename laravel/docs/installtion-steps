@@ -7,17 +7,18 @@ cd example-app
 composer require laravel/jetstream
 composer require livewire/livewire
 composer require maatwebsite/excel
+composer require barryvdh/laravel-dompdf
+composer require laravel/sanctum
+
 php artisan jetstream:install livewire
+php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+php artisan key:generate
+php artisan storage:link
 
 npm install
 
-php artisan key:generate
 
-composer require barryvdh/laravel-dompdf
-php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
-
-composer require laravel/sanctum
-php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 php artisan migrate
 
 
@@ -124,6 +125,7 @@ php artisan optimize:clear
 php artisan route:list | grep -E " login|logout" || true
 
 echo "✅ Jetstream + Livewire reinstalled. Try: php artisan serve, then open http://127.0.0.1:8000/login"
+
 
 
 
