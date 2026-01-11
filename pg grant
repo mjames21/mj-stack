@@ -1,5 +1,18 @@
 SELECT current_database(), current_user;
-GRANT USAGE, CREATE ON SCHEMA public TO app_user;
+
+SELECT
+  inet_server_addr() AS host,
+  inet_server_port() AS port,
+  current_database() AS db,
+  current_user AS usr;
+
+SELECT rolname, quote_ident(rolname) AS ident
+FROM pg_roles
+WHERE rolname ILIKE '%app_user%';
+
+Copy the ident value from the query result grid and run:
+
+GRANT USAGE, CREATE ON SCHEMA public TO <paste_ident_here>;
 
 
 
