@@ -1,8 +1,8 @@
 sudo apt install  php8.3-fpm php8.3-mbstring php8.3-xml php8.3-mysql php8.3-zip php8.3-curl php8.3-gd
 
-composer create-project laravel/laravel example-app
+composer create-project laravel/laravel webapp
 
-cd example-app
+cd webapp
 
 composer require laravel/jetstream
 composer require livewire/livewire
@@ -125,6 +125,7 @@ php artisan optimize:clear
 php artisan route:list | grep -E " login|logout" || true
 
 echo "✅ Jetstream + Livewire reinstalled. Try: php artisan serve, then open http://127.0.0.1:8000/login"
+
 
 
 
