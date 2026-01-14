@@ -1,0 +1,3 @@
+scp -r \
+  /home/mohamed-james/Documents/pdu/galaxy/fbrace/storage/app/imports/* \
+  root@ip:/var/www/html/fbrace/storage/app/imports/
