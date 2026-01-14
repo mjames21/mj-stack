@@ -7,3 +7,7 @@ sudo certbot --nginx   -d pssnye.example.datahub.gov.sl.  -d www.example.datahub
 sudo systemctl status certbot.timer
 
 https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04
+
+
+How To Set Up Password Authentication with Nginx on Ubuntu 20.04
+https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-20-04
