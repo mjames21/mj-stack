@@ -1,0 +1,11 @@
+php artisan tinker
+
+//DB TRUNCATE
+DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+DB::table('application_role_field_rules')->truncate();
+DB::table('application_role_transitions')->truncate();
+DB::table('application_role_statuses')->truncate();
+DB::table('application_role_configs')->truncate();
+
+DB::statement('SET FOREIGN_KEY_CHECKS=1');
