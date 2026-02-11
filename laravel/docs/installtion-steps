@@ -12,6 +12,7 @@ sudo update-alternatives --set php /usr/bin/php8.4
 
 php -v
 sudo apt install composer
+sudo apt install npm
 
 ######################################################
 
@@ -140,6 +141,7 @@ php artisan optimize:clear
 php artisan route:list | grep -E " login|logout" || true
 
 echo "✅ Jetstream + Livewire reinstalled. Try: php artisan serve, then open http://127.0.0.1:8000/login"
+
 
 
 
