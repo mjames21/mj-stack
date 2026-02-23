@@ -5,7 +5,7 @@ sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update
 
 # Install PHP 8.4 + common extensions
-sudo apt install -y php8.4-cli php8.4-fpm php8.4-mbstring php8.4-xml php8.4-curl php8.4-zip php8.4-intl php8.4-gd php8.4-mysql php8.4-bcmath
+sudo apt install -y php8.4-cli php8.4-fpm php8.4-mbstring php8.4-xml php8.4-curl php8.4-zip php8.4-intl php8.4-gd php8.4-mysql php8.4-bcmath php8.4-pgsql
 
 # Make CLI use 8.4
 sudo update-alternatives --set php /usr/bin/php8.4
@@ -13,6 +13,9 @@ sudo update-alternatives --set php /usr/bin/php8.4
 php -v
 sudo apt install composer
 sudo apt install npm
+
+systemctl restart nginx
+systemctl restart php8.3-fpm || systemctl restart php8.4-fpm
 
 ######################################################
 
@@ -141,6 +144,7 @@ php artisan optimize:clear
 php artisan route:list | grep -E " login|logout" || true
 
 echo "✅ Jetstream + Livewire reinstalled. Try: php artisan serve, then open http://127.0.0.1:8000/login"
+
 
 
 
