@@ -44,3 +44,22 @@ sudo /usr/pgadmin4/bin/setup-web.sh
 # 4) Verify installed package versions
 dpkg -l | grep -i pgadmin
 
+install pg on linux local
+set -euo pipefail
+
+# Install PostgreSQL server
+sudo apt update
+sudo apt install -y postgresql postgresql-contrib
+
+# Start + enable
+sudo systemctl enable --now postgresql
+
+# Verify cluster + port
+sudo pg_lsclusters
+sudo ss -ltnp | grep 5432
+
+# Create role + DB (your commands)
+sudo -u postgres psql -c "CREATE ROLE admin WITH LOGIN PASSWORD 'password';"
+sudo -u postgres psql -c "ALTER ROLE admin CREATEDB;"
+sudo -u postgres psql -c "CREATE DATABASE admin OWNER admin;"
+
